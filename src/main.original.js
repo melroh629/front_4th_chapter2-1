@@ -1,3 +1,5 @@
+const FLASH_SALE_RATE = 0.8
+const RECOMMEND_SALE_RATE = 0.95
 var sel, addBtn, cartItemList, sum, stockInfo
 let lastSel,
   bonusPts = 0,
@@ -17,7 +19,12 @@ const createElement = (tag, { id, className, textContent }) => {
   if (textContent) element.textContent = textContent
   return element
 }
-
+const getRandomIndex = (array) => {
+  return Math.floor(Math.random() * array.length)
+}
+const getDiscountedPrice = (price, rate) => {
+  return Math.fround(price * rate)
+}
 function main() {
   const root = createElement('div', { id: 'app' })
   const cont = createElement('div', { className: 'bg-gray-100 p-8' })
@@ -51,10 +58,10 @@ function main() {
   calcCart()
   // setTimeout(() => {
   //   setInterval(() => {
-  //     const luckyItem =
-  //       productList[Math.floor(Math.random() * productList.length)]
+  //     const luckyItem = productList[getRandomIndex(productList)]
   //     if (Math.random() < 0.3 && luckyItem.q > 0) {
-  //       luckyItem.val = Math.round(luckyItem.val * 0.8)
+  //       // ?? 왜 0.3이지? 0.3은 어디서 나온거지?
+  //       luckyItem.val = Math.round(luckyItem.val * FLASH_SALE_RATE)
   //       alert(`번개세일! ${luckyItem.name}이(가) 20% 할인 중입니다!`)
   //       updateSelOpts()
   //     }
